@@ -1,3 +1,21 @@
+import Vue from 'vue'
+import App from 'pages/App.vue'
+import Login from 'pages/Login.vue'
+import VueResource from 'vue-resource'
+
+Vue.use(VueResource)
+
+
+new Vue({
+    el: '#application',
+    render: a => a(App)
+});
+
+new Vue({
+    el: '#login',
+    render: a => a(Login)
+});
+/*
 let measurementsApi = Vue.resource('/measurements/{id}');
 
 
@@ -47,10 +65,11 @@ Vue.component('measurement-list', {
     }
 });
 
-var app = new Vue({
+var main = new Vue({
     el: '#application',
     template: '<measurement-list :measurements="measurements"></measurement-list>',
     data: {
         measurements:[]
     }
 });
+*/

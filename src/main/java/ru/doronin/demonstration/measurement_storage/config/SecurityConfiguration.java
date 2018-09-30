@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import ru.doronin.demonstration.measurement_storage.security.CustomUserDetailService;
 
 @Configuration
@@ -59,10 +60,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) {
         web.ignoring()
                 .antMatchers("/assets/**")
-                .antMatchers("/fonts/**")
+                .antMatchers("/webjars/**")
                 .antMatchers("/js/**")
-                .antMatchers("/styles/**")
-                .antMatchers("/i/**");
+                .antMatchers("/styles/**");
     }
 
     @Override
@@ -73,16 +73,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         handler.setApplicationContext(context);
 
         http.csrf().disable()
-                .headers().frameOptions().disable()
+                .userDetailsService(userDetailsService)
+                .authorizeRequests().expressionHandler(handler)
+                .and()
+                .authorizeRequests()
+                .antMatchers("/**").hasRole("CUSTOMER")
+                .and()
+                .formLogin().loginPage("/login").permitAll().usernameParameter("login").passwordParameter("password")
                 .and()
                 .httpBasic()
                 .and()
-                .formLogin()/*.loginPage("/login").permitAll()*/.usernameParameter("login").passwordParameter("password")
-                .and()
-                .userDetailsService(userDetailsService)
-                .authorizeRequests()
-                .expressionHandler(handler)
-                .anyRequest().authenticated()
-                .antMatchers("/rest/**").permitAll();
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
     }
 }
