@@ -3,13 +3,13 @@ Simple CRUD Application using Spring Boot 2+ and Vue.JS 2+
 
 There are four users out of the box:
 ************************
-*  Login  *  Password  *
+|  Login  |  Password  |
 ************************
-*  first  *  first     *
+|  first  |  first     |
 ************************
-*  second *  second    *
+|  second |  second    |
 ************************
-*  third  *  third     *
+|  third  |  third     |
 ************************
-*  admin  *  admin     *
+|  admin  |  admin     |
 ************************ 
