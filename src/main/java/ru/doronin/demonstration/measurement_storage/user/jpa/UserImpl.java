@@ -1,7 +1,6 @@
 package ru.doronin.demonstration.measurement_storage.user.jpa;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import ru.doronin.demonstration.measurement_storage.persistance.jpa.DomainImpl;
 import ru.doronin.demonstration.measurement_storage.user.Role;
 import ru.doronin.demonstration.measurement_storage.user.base.User;
@@ -15,6 +14,9 @@ import javax.persistence.*;
 @EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "USERS")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserImpl extends DomainImpl implements User {
 
     @Column(name = "LOGIN", nullable = false, unique = true)

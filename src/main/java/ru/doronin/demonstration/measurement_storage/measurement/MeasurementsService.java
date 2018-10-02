@@ -72,6 +72,7 @@ public class MeasurementsService {
             }
 
             toSave.setValue(measurement.getValue());
+            toSave.setRegistered(measurement.getRegistered());
             return (Measurement) measurementRepository.save(toSave);
         }
 

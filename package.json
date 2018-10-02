@@ -7,24 +7,31 @@
   "author": "Anton <doronantonin@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@babel/core": "^7.1.2",
+    "luxon": "^1.4.1",
+    "semantic-ui-css": "^2.4.0",
     "vue": "^2.5.17",
-    "vue-resource": "^1.5.1"
+    "vue-datetime": "^1.0.0-beta.6",
+    "vue-resource": "^1.5.1",
+    "weekstart": "^1.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
-    "babel-loader": "^8.0.2",
+    "babel-loader": "^8.0.4",
     "http-server": "^0.11.1",
+    "postcss-cssnext": "^3.1.0",
+    "postcss-loader": "^3.0.0",
     "style-loader": "^0.23.0",
+    "vue-build": "^3.0.0",
     "vue-loader": "^15.4.2",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.5.17",
-    "webpack": "^4.20.2",
-    "webpack-cli": "^3.1.1",
+    "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.9"
   },
   "scripts": {
     "start": "webpack-dev-server",
+    "build": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   }
 }

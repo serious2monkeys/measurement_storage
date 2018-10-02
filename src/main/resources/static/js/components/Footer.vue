@@ -13,4 +13,14 @@
 </script>
 
 <style scoped>
+    .footer {
+        position: absolute;
+        width: 100%;
+        height: 60px;
+        line-height: 60px;
+        background-color: #f5f5f5;
+        text-align: center;
+        display: block;
+        box-sizing: border-box;
+    }
 </style>

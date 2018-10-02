@@ -3,12 +3,10 @@ package ru.doronin.demonstration.measurement_storage.measurement.jpa;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.doronin.demonstration.measurement_storage.measurement.base.HeatingMeasurement;
-import ru.doronin.demonstration.measurement_storage.user.base.User;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 /**
  * Хранимая сущность измерения тепла

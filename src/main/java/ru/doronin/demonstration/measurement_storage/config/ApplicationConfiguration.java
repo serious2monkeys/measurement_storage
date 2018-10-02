@@ -20,6 +20,7 @@ import ru.doronin.demonstration.measurement_storage.measurement.jpa.WaterMeasure
 import ru.doronin.demonstration.measurement_storage.persistance.base.Domain;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Общие настройки приложения
@@ -92,7 +93,7 @@ public class ApplicationConfiguration {
                     throw new IllegalArgumentException("Unknown measurement type");
             }
             if (!StringUtils.isEmpty(source.getRegistered())) {
-                output.setRegistered(LocalDateTime.parse(source.getRegistered()));
+                output.setRegistered(LocalDateTime.parse(source.getRegistered(), DateTimeFormatter.ISO_DATE_TIME));
             }
             output.setType(source.getType());
             output.setId(source.getId());

@@ -18,6 +18,9 @@ import org.springframework.security.web.access.expression.DefaultWebSecurityExpr
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import ru.doronin.demonstration.measurement_storage.security.CustomUserDetailService;
 
+/**
+ * Настройки безопасности приложения
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -31,11 +34,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         this.userDetailsService = userDetailsService;
     }
 
+    /**
+     * Простой кодировщик паролей
+     * @return
+     */
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * Настройки компонента авторазации
+     * @return
+     */
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -49,6 +60,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authenticationProvider());
     }
 
+    /**
+     * Стандартная иерархия пользователей: есть пользователь и админ
+     * @return
+     */
     @Bean
     public RoleHierarchy hierarchy() {
         RoleHierarchyImpl hierarchy = new RoleHierarchyImpl();
@@ -56,6 +71,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return hierarchy;
     }
 
+    /**
+     * Разрешаем доступ всем к некоторым ресурсам приложения
+     * @param web
+     */
     @Override
     public void configure(WebSecurity web) {
         web.ignoring()
@@ -65,6 +84,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/styles/**");
     }
 
+    /**
+     * Настройка политик безопасности
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_INHERITABLETHREADLOCAL);

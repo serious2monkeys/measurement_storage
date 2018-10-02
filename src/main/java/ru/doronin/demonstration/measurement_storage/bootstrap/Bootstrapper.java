@@ -39,7 +39,7 @@ import static java.math.BigDecimal.ROUND_HALF_UP;
 public class Bootstrapper implements ApplicationListener<ContextRefreshedEvent> {
     private final UserService userService;
     private final MeasurementsService measurementsService;
-    private final Random random = new SecureRandom();
+    private final static Random random = new SecureRandom();
 
     public Bootstrapper(UserService userService, MeasurementsService measurementsService) {
         this.userService = userService;
@@ -69,11 +69,12 @@ public class Bootstrapper implements ApplicationListener<ContextRefreshedEvent> 
      * @return - сохраненный экземпляр
      */
     private User createUser(String login, String name, Role role) {
-        User customer = new UserImpl();
-        customer.setLogin(login);
-        customer.setPassword(login);
-        customer.setName(name);
-        customer.setRole(role);
+        User customer = UserImpl.builder()
+                .login(login)
+                .password(login)
+                .name(name)
+                .role(role)
+                .build();
         return userService.save(customer);
     }
 
@@ -120,7 +121,7 @@ public class Bootstrapper implements ApplicationListener<ContextRefreshedEvent> 
      * @param seedValue - опорное значение
      * @return
      */
-    private HeatingMeasurement makeUpHeatingMeasurement(User user, LocalDate date, BigDecimal seedValue) {
+    public static HeatingMeasurement makeUpHeatingMeasurement(User user, LocalDate date, BigDecimal seedValue) {
         HeatingMeasurement heatingMeasurement = new HeatingMeasurementImpl();
         heatingMeasurement.setOwner(user);
         heatingMeasurement.setRegistered(date.atTime(makeUpTime()));
@@ -136,7 +137,7 @@ public class Bootstrapper implements ApplicationListener<ContextRefreshedEvent> 
      * @param seedValue - опорное значение
      * @return
      */
-    private ElectricityMeasurement makeUpElectricityMeasurement(User user, LocalDate date, ElectricityMetrics seedValue) {
+    public static ElectricityMeasurement makeUpElectricityMeasurement(User user, LocalDate date, ElectricityMetrics seedValue) {
         ElectricityMeasurement electricityMeasurement = new ElectricityMeasurementImpl();
         electricityMeasurement.setOwner(user);
         electricityMeasurement.setRegistered(date.atTime(makeUpTime()));
@@ -154,7 +155,7 @@ public class Bootstrapper implements ApplicationListener<ContextRefreshedEvent> 
      * @param seedValue - опорное значение
      * @return
      */
-    private WaterMeasurement makeUpWaterMeasurement(User user, LocalDate date, WaterMetrics seedValue) {
+    public static WaterMeasurement makeUpWaterMeasurement(User user, LocalDate date, WaterMetrics seedValue) {
         WaterMeasurement waterMeasurement = new WaterMeasurementImpl();
         waterMeasurement.setOwner(user);
         waterMeasurement.setRegistered(date.atTime(makeUpTime()));
@@ -169,7 +170,7 @@ public class Bootstrapper implements ApplicationListener<ContextRefreshedEvent> 
      *
      * @return - произвольный момент времени
      */
-    private LocalTime makeUpTime() {
+    private static LocalTime makeUpTime() {
         return LocalTime.of(random.nextInt(23),
                 random.nextInt(59),
                 random.nextInt(59));
